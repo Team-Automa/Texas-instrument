@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <title>Controller</title>
+  </head>
+  <body>
+    Hello There User
+    <body>
+      <div class="container">
+        <div class="row">
+          <div class="up">
+            <button class="fa fa-angle-up" id="forward"></button>
+          </div>
+          <div class="middle">
+            <button class="fa fa-angle-left" id="left"></button>
+            <button class="fa fa-angle-down" id="reverse"></button>
+            <button class="fa fa-angle-right" id="right"></button>
+          </div>
+          <br />
+          <div class="last">
+            <button class="fa stop" id="stop">STOP</button>
+          </div>
+        </div>
+      </div>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+      <script>
+        var socket = io();
+        function moveForward() {
+          socket.emit("start");
+        }
+        function turnRight() {
+          socket.emit("right");
+        }
+        function turnLeft() {
+          socket.emit("left");
+        }
+        function moveReverse() {
+          socket.emit("reverse");
+        }
+        function stop() {
+          socket.emit("stop");
+        }
+
+        document.getElementById("forward").onclick = moveForward;
+        document.getElementById("right").onclick = turnRight;
+        document.getElementById("left").onclick = turnLeft;
+        document.getElementById("reverse").onclick = moveReverse;
+        document.getElementById("stop").onclick = stop;
+      </script>
+    </body>
+    <style>
+      button {
+        background: #333;
+        color: yellow;
+        border: 0px;
+        padding: 25px;
+      }
+    </style>
+  </body>
+</html>
