@@ -5,13 +5,10 @@ import { Button } from "semantic-ui-react";
 const VideoController = () => {
   const [location, setLocation] = React.useState([]);
   const video = document.querySelector("video");
-  const VideoReff = React.createRef();
-  
-  //  useEffect is used instead of componentDidMount()
+  const VideoReff = React.createRef({});
   useEffect(() => {
     Locate();
   }, [location]);
-  
   const getMediaSrc = () => {
     navigator.getUserMedia =
       navigator.getUserMedia ||
@@ -20,37 +17,26 @@ const VideoController = () => {
       navigator.ogetUserMedia;
     return navigator.getUserMedia;
   };
-
-  // Video Streaming 
   function StreamAppController(option) {
-    
-    const VideoView = (stream) =>{
-          video.srcObject = stream;
-          
-          if(navigator.getUserMedia){
-            option.play();
-          }
-          else{
-            option.pause()
-          }
-
-    }
-
     navigator.getUserMedia = getMediaSrc();
-    navigator.getUserMedia({ video: true, audio: true }, VideoView , VideoError);
-    
+    navigator.getUserMedia({ video: true, audio: true }, VideoView, VideoError);
+    function VideoView(stream) {
+      video.srcObject = stream;
+      if (navigator.getUserMedia) {
+        option.play();
+      } else {
+        option.pause();
+      }
+    }
     function VideoError(err) {
       console.log(err);
     }
-
   }
-
-  const StreamApp = e => StreamAppController(video);
-    
-
-  //  Record video 
-
-  function RecordOption(e) {
+  const StreamApp = e => {
+    StreamAppController(video);
+    // the
+  };
+  function RecordOptiosn(e) {
     navigator.getUserMedia = getMediaSrc();
 
     navigator.getUserMedia({ audio: true }, audioInput, videoErr);
@@ -64,9 +50,6 @@ const VideoController = () => {
       console.log(err);
     }
   }
-
-  // geoLocation tracker
-  
   function Locate() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(data => {
@@ -75,9 +58,6 @@ const VideoController = () => {
       });
     }
   }
-  
-  // Render ui 
-
   return (
     <div style={{ margin: "10px" }}>
       <h3>Video streaming and Real time Location and audio streaming</h3>
@@ -86,7 +66,7 @@ const VideoController = () => {
       <Button negative onClick={StreamApp} ref={VideoReff}>
         Stream Video
       </Button>
-      <Button positive onClick={RecordOption}>
+      <Button positive onClick={RecordOptiosn}>
         Record Audio
       </Button>
     </div>
