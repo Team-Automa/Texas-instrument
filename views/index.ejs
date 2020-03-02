@@ -37,6 +37,27 @@
           </div>
         </div>
       </div>
+      <div>
+        <video id="display" controls="false" autoplay="true"></video>
+      </div>
+      <script>
+        navigator.getUserMedia =
+          navigator.getUserMedia || navigator.webkitgetUserMedia;
+
+        if (navigator.getUserMedia) {
+          navigator.getUserMedia(
+            { video: true, audio: true },
+            stream => {
+              const video = document.getElementById("display");
+              video.srcObject = stream;
+              console.log(stream);
+            },
+            err => {
+              console.log(err);
+            }
+          );
+        }
+      </script>
       <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
       <script>
         var socket = io();
