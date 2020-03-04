@@ -33,6 +33,7 @@ def stream():
             encoded, buffer = cv2.imencode('.jpg', frame)
             jpg_as_text = base64.b64encode(buffer)
             footage_socket.send(jpg_as_text)
+            return jsonify(users);
         except KeyboardInterrupt:
             camera.release()
             cv2.destroyAllWindows()

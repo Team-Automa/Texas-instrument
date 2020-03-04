@@ -26,6 +26,9 @@ def stream():
     footage_socket.connect('tcp://172.20.10.4:12044')
 
     camera = cv2.VideoCapture(0)  # init the camera
+
+    return jsonify(users);
+
     while True:
         try:
             grabbed, frame = camera.read()  # grab the current frame
@@ -33,6 +36,7 @@ def stream():
             encoded, buffer = cv2.imencode('.jpg', frame)
             jpg_as_text = base64.b64encode(buffer)
             footage_socket.send(jpg_as_text)
+
         except KeyboardInterrupt:
             camera.release()
             cv2.destroyAllWindows()
